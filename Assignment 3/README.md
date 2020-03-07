@@ -1,0 +1,2 @@
+# Assignment 3 - Ultrasonic Radar
+The objective of this assignment is to develop an ultrasonic radar. The radar is able to detect objects that come within its field of view using a par of 40kHz ultrasonic transducers mounted on a servo motor mechanism. A detected object's relative position is displayed on the LCD. The software is written in C, for the C8051F120 development system in conjunction with the peripheral interface board.
