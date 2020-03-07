@@ -2,7 +2,7 @@
 
 Project: Assignment 3
 Module:	ELEC2700
-Author:	Joshua Beverley (c3195884) & Radhika Feron (c3256870)
+Author:	JB & Radhika Feron
 Date:	02/06/2017
 
 Description:
@@ -34,10 +34,10 @@ ________________________________________________________________________________
 
 bit index = 0;		//	Used for servo control. When set to 1, will turn servo to 0 and wait 20ms. When set to 1, will wait certain time depending on angle. 
 bit LCD_delay; 				// used to signal that timer 3 has overflowed and that 1ms has passed since last overflow. Set to 1 when overflowed, otherwise set to 0. 
-code char letter[] = { 'J','o','s','h','u','a',' ','B','e','v','e','r','l','e','y','&',' ','R','a','d','h','i','k','a',' ','F','e','r','o','n' };	// list of characters to display “Joshua Beverley & Radhika Feron” on the LCD display. 
-code char angle[] = { 'A','n','g','l','e',':',' ' };		// list of characters to display “Angle: ” on the LCD display. 
+code char letter[] = { 'J','o','s','h','u','a',' ','B','e','v','e','r','l','e','y','&',' ','R','a','d','h','i','k','a',' ','F','e','r','o','n' };	// list of characters to display â€œJoshua Beverley & Radhika Feronâ€ on the LCD display. 
+code char angle[] = { 'A','n','g','l','e',':',' ' };		// list of characters to display â€œAngle: â€ on the LCD display. 
 code char number[] = { '0','1','2','3','4','5','6','7','8','9','+','-',0xDF,'m' };	// list of numbers as characters to display on the LCD display. 0xDF is the degrees character, and m is used for millimeters units. 
-code char distanceLCD[] = { 'D','i','s','t','a','n','c','e',':',' ',':' };	// list of characters to display “Distance: ” on the LCD display. 
+code char distanceLCD[] = { 'D','i','s','t','a','n','c','e',':',' ',':' };	// list of characters to display â€œDistance: â€ on the LCD display. 
 code char out_of_range[] = { '-','-','-','m','m' };	// this displays instead of numbers on the LCD display when there is no object detected. 
 code int higherreload[] = {
 	0xFB,0xFB,0xFB,0xFA,0xFA,0xFA,0xFA,0xFA,0xFA,0xFA,0xFA,0xFA,0xFA,0xFA,0xFA,0xFA,0xF9,0xF9,0xF9,0xF9,0xF9,0xF9,0xF9,0xF9,0xF9,0xF9,0xF9,0xF9,0xF9,0xF8,0xF8,0xF8,
@@ -102,9 +102,9 @@ void main(void)
 	Timer2_Init();		//calls the timer 2 initialisation function
 	Interrupts_Init();	//calls the interrupt initialisation function
 	LCD_Init();		//calls the LCD initialisation function
-	AngleWord();		//calls AngleWord function to display the word “Angle” on the LCD
+	AngleWord();		//calls AngleWord function to display the word â€œAngleâ€ on the LCD
 	DispAngle();		//calls DispAngle function to display the angle of the servo on the LCD
-	DistanceWord();		//calls DistanceWord function to display the word “Distance” on the LCD
+	DistanceWord();		//calls DistanceWord function to display the word â€œDistanceâ€ on the LCD
 	DispDistance();		//calls DispDistance function to display the distance of any detected object on the LCD
 	P2=0;
 	USonicTX = 0;	//clear USonicTX
@@ -326,8 +326,8 @@ void main(void)
 					else {
 						signal_received = 0;		//no signal has been received, so set the bit to 0. 
 						distance = 0;			//set distance to 0, as no signal has been received. 
-						stop = 0;				//no object, so don’t stop the servo. 
-						if (stopnumber != 0)		// if stopnumber doesn’t equal 0
+						stop = 0;				//no object, so donâ€™t stop the servo. 
+						if (stopnumber != 0)		// if stopnumber doesnâ€™t equal 0
 						{
 							stopnumber--;			// decrement stopnumber, decreases the number of times nothing has to be seen before moving again. 
 						}
@@ -366,7 +366,7 @@ void main(void)
 			else
 			{
 				stop = 0;		//object is further away than 100mm, turn off stop.
-				if (stopnumber != 0)	// if stopnumber doesn’t equal 0
+				if (stopnumber != 0)	// if stopnumber doesnâ€™t equal 0
 				{
 					stopnumber--;	// decrement stopnumber, decreases the number of times nothing has to be seen before moving again. 
 				}
@@ -387,8 +387,8 @@ void main(void)
 		timer1interrupt = 0;		//clear timer1interrupt
 		index = 1;		//set index to 1, so when timer 0 is initialised, the servo is set to 1 and the reload values used are for the angle. 
 		signal_received = 0;	//reset the signal_received bit for next use.  
-		if (stop == 1 || stopnumber != 0) {		//if object is closer than 100mm, or the stopnumber hasn’t decremented enough for movement yet. 
-			Timer1_Init();		//use the same anglenumber as last time, so the servo doesn’t move
+		if (stop == 1 || stopnumber != 0) {		//if object is closer than 100mm, or the stopnumber hasnâ€™t decremented enough for movement yet. 
+			Timer1_Init();		//use the same anglenumber as last time, so the servo doesnâ€™t move
 			if (dacinit == 0)	//if the DAC is currently off
 			{
 				DAC_Init();	//turn the DAC on, object is closer than 100mm
@@ -432,12 +432,12 @@ Description:      This function is used to emulated a basic radar screen on the 
 void radarLCD()
 {
 	int n = 0;		//variable used for the for loops in this function. 
-	copydistance = 0;	//variable used to change whether the LCD blocks appear on the top row (further than 100mm) or bottom row (closer than 100mm). In radar mode, the distance isn’t displayed on the LCD, so this variable (otherwise used in the DispDistance() function) is used here instead. 
+	copydistance = 0;	//variable used to change whether the LCD blocks appear on the top row (further than 100mm) or bottom row (closer than 100mm). In radar mode, the distance isnâ€™t displayed on the LCD, so this variable (otherwise used in the DispDistance() function) is used here instead. 
 	if (distance > 100)	//if distance is larger than 
 	{
 		copydistance = 4;	//set copydistance to 4, the difference between the addresses for the two LCD lines (most significant bit)
 	}
-	copyangle = anglenumber / 16;	//divide the angle by 16, representing the 16 columns of LCD blocks. Again, copyangle is a variable used to display the angle on the LCD, but isn’t doing this in radar mode. 
+	copyangle = anglenumber / 16;	//divide the angle by 16, representing the 16 columns of LCD blocks. Again, copyangle is a variable used to display the angle on the LCD, but isnâ€™t doing this in radar mode. 
 	for (n = 0;n != 16;n++)	//for each column in the LCD screen
 	{
 		if (copyangle == n)	//if the angle is equal to n for this iteration of the for loop
@@ -570,7 +570,7 @@ void DAC_Deinit()
 
 /*--------------------------------------------------------------------------------------------------------------------
 Function: Display_Joshua_Radhika
-Description: Display “Joshua Beverley & Radhika Feron” when in the innovation mode
+Description: Display â€œJoshua Beverley & Radhika Feronâ€ when in the innovation mode
 --------------------------------------------------------------------------------------------------------------------*/
 
 void Display_Joshua_Radhika()
@@ -582,7 +582,7 @@ void Display_Joshua_Radhika()
 	LCD = 0x80;	//Change the address so that characters can be displayed from the first column of the LCD. 
 	Toggle_E();	//Toggle the E line
 
-	for (n = 0;n != 15;n++) //16 characters in the first line “Joshua Beverley ” so the for loop needs to repeated 16 times to print all characters. 
+	for (n = 0;n != 15;n++) //16 characters in the first line â€œJoshua Beverley â€ so the for loop needs to repeated 16 times to print all characters. 
 	{
 		LCD = (letter[n] >> 4 & 0x0F) | 0x90;	//Select the higher nibble of the character to display. 
 		Toggle_E();	//Toggle the E line
@@ -595,7 +595,7 @@ void Display_Joshua_Radhika()
 	LCD = 0x80;	//Change the address so that characters can be displayed from the first column of the LCD. 
 	Toggle_E();	//Toggle the E line
 
-	for (n = 15;n != 30;n++) //16 characters in the first line “& Radhika Feron ” so the for loop needs to repeated 16 times to print all characters. 
+	for (n = 15;n != 30;n++) //16 characters in the first line â€œ& Radhika Feron â€ so the for loop needs to repeated 16 times to print all characters. 
 	{
 		LCD = (letter[n] >> 4 & 0x0F) | 0x90;	//Select the higher nibble of the character to display. 
 		Toggle_E();	//Toggle the E line
@@ -606,7 +606,7 @@ void Display_Joshua_Radhika()
 
 /*--------------------------------------------------------------------------------------------------------------------
 Function: AngleWord
-Description: Display the word “Angle: ” when not in radar mode. Will only run once.
+Description: Display the word â€œAngle: â€ when not in radar mode. Will only run once.
 --------------------------------------------------------------------------------------------------------------------*/
 
 void AngleWord()
@@ -616,7 +616,7 @@ void AngleWord()
 	Toggle_E();	//Toggle the E line
 	LCD = 0x80;	//Change the address so that characters can be displayed from the first column of the LCD. 
 	Toggle_E();	//Toggle the E line
-	for (n = 0;n != 7;n++) 	//7 characters in the line “Angle: ” so the for loop needs to repeated 7 times to print all characters. 
+	for (n = 0;n != 7;n++) 	//7 characters in the line â€œAngle: â€ so the for loop needs to repeated 7 times to print all characters. 
 	{
 		LCD = (angle[n] >> 4 & 0x0F) | 0x90;	//Select the higher nibble of the character to display. 
 		Toggle_E();	//Toggle the E line
@@ -694,7 +694,7 @@ void DispAngle()
 
 /*--------------------------------------------------------------------------------------------------------------------
 Function: DistanceWord
-Description: Display the word “Distance: ” when not in radar mode. Will only run once.
+Description: Display the word â€œDistance: â€ when not in radar mode. Will only run once.
 --------------------------------------------------------------------------------------------------------------------*/
 
 void DistanceWord()
@@ -704,7 +704,7 @@ void DistanceWord()
 	Toggle_E();	//Toggle the E line
 	LCD = 0x80;	//Change the address so that characters can be displayed from the first column of the LCD. 
 	Toggle_E();	//Toggle the E line
-	for (n = 0;n != 10;n++)	//10 characters in the line “Distance: ” so the for loop needs to repeated 10 times to print all characters. 
+	for (n = 0;n != 10;n++)	//10 characters in the line â€œDistance: â€ so the for loop needs to repeated 10 times to print all characters. 
 	{
 		LCD = (distanceLCD[n] >> 4 & 0x0F) | 0x90;	//Select the higher nibble of the character to display. 
 		Toggle_E();	//Toggle the E line
@@ -738,7 +738,7 @@ void DispDistance(void)
 	}
 	else 
 	{
-		copydistance = copydistance / 100;	//Divide by 100 to extract the 100’s digit. 
+		copydistance = copydistance / 100;	//Divide by 100 to extract the 100â€™s digit. 
 		for (n = 0;n != 5;n++)	//Check for numbers 0-4. After that numbers are out of range. 
 		{
 			if (copydistance == n)	//If the distance digit to be printed is equal to n (this iteration of the for loop)
@@ -747,11 +747,11 @@ void DispDistance(void)
 				Toggle_E();	//Toggle the E line
 				LCD = (number[n] & 0x0F) | 0x90;	//Select the lower nibble of the number n to be displayed. 
 				Toggle_E();	//Toggle the E line
-				copydistance = distanceforprint - (n * 100);	//Subtract the 100’s digit from the distance number. Leaves a two digit number. 	
+				copydistance = distanceforprint - (n * 100);	//Subtract the 100â€™s digit from the distance number. Leaves a two digit number. 	
 				n = 4;		//Increment n to exit the for loop once the number has been printed. 
 			}
 		}
-		copydistance = copydistance / 10;	//Divide by 10 to extract the 10’s digit. 
+		copydistance = copydistance / 10;	//Divide by 10 to extract the 10â€™s digit. 
 		for (n = 0;n != 10;n++)	//Check for all 10 numbers. 
 		{
 			if (copydistance == n)	//If the distance digit to be printed is equal to n (this iteration of the for loop)
@@ -848,7 +848,7 @@ void Xms_Delay(int p)
 	for (m = 0; m < p; m++) //m will increment every 1ms when the timer 1 overflows and is reset. When it reaches n, the specified number of milliseconds, the for loop will break. 
 	{
 		Timer3_Init();   //initialise timer 1. 
-		while (LCD_delay == 0) //while the LCD_delay variable hasn’t been set to 1, infinitely loop. The loop will break when timer 3 overflows. 
+		while (LCD_delay == 0) //while the LCD_delay variable hasnâ€™t been set to 1, infinitely loop. The loop will break when timer 3 overflows. 
 		{
 		}
 		LCD_delay = 0;  //reset the flag to 0 for next use
