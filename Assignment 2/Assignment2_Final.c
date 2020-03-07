@@ -1,7 +1,7 @@
 /*_____________________________________________________________________________________________________________________
 Assignment: Assignment 2
 Module:
-Author: Radhika Feron (c3256870) & Joshua Beverley (c3195884)
+Author: Radhika Feron & JB
 Date: 05/05/2017
 Description:
 This C language program will implement a basic electronic keyboard using the C8051F120 microcontroller together with 
@@ -45,16 +45,16 @@ code int volume_higher[] = { 0x00,0x80,0x40,0xC0,0x20,0xA0,0x60,0xE0,0x10,0x90,0
 int volume_level = 7; 		//default volume level of 7 (out of 16 levels)
 int i = 0; 					//variable used to generate a 500ms timer 2 to flash LED1 at 1Hz
 bit LCD_delay; 				// used to signal that timer 3 has overflowed and that 1ms has passed since last overflow. Set to 1 when overflowed, otherwise set to 0. 
-code int joshuaradhika[] = { 0xD0,0xD4,0xDA,0xD6,0xDF,0xD7,0xD3,0xD6,0xD8,0xD7,0xD5,0xD6,0xD1,0xD2,0xD0,0xD4,0xD2,0xD6,0xD5,0xD7,0xD6,0xD6,0xD5,0xD7,0xD2,0xD6,0xDC,0xD6,0xD5,0xD7,0xD9,0xD2,0xD0,0xD2,0xD6,0xD2,0xD0,0xD5,0xD2,0xD6,0xD1,0xD6,0xD4,0xD6,0xD8,0xD6,0xD9,0xD6,0xDB,0xD6,0xD1,0xD2,0xD0,0xD4,0xD6,0xD6,0xD5,0xD7,0xD2,0xD6,0xDF,0xD6,0xDE,0xD2,0xD0 }; // list of hex codes to display ìJoshua Beverley & Radhika Feronî on the LCD display. Every character is represented by two bytes (hex numbers), the higher byte listed first. 
-code int joshuaradhikahalf[] = { 0xD0,0xD4,0xDA,0xD6,0xDF,0xD7,0xD3,0xD6,0xD8,0xD7,0xD5,0xD6,0xD1,0xD2,0xD0,0xD2,0xD6,0xD2,0xD0,0xD5,0xD2,0xD6,0xD1,0xD6,0xD4,0xD6,0xD8,0xD6,0xD9,0xD6,0xDB,0xD6,0xD1 }; // list of hex codes used to display ìJoshua & Radhikaî on the LCD display. Every character is represented by two bytes (hex numbers), the higher byte listed first. 
+code int joshuaradhika[] = { 0xD0,0xD4,0xDA,0xD6,0xDF,0xD7,0xD3,0xD6,0xD8,0xD7,0xD5,0xD6,0xD1,0xD2,0xD0,0xD4,0xD2,0xD6,0xD5,0xD7,0xD6,0xD6,0xD5,0xD7,0xD2,0xD6,0xDC,0xD6,0xD5,0xD7,0xD9,0xD2,0xD0,0xD2,0xD6,0xD2,0xD0,0xD5,0xD2,0xD6,0xD1,0xD6,0xD4,0xD6,0xD8,0xD6,0xD9,0xD6,0xDB,0xD6,0xD1,0xD2,0xD0,0xD4,0xD6,0xD6,0xD5,0xD7,0xD2,0xD6,0xDF,0xD6,0xDE,0xD2,0xD0 }; // list of hex codes to display ‚ÄúJoshua Beverley & Radhika Feron‚Äù on the LCD display. Every character is represented by two bytes (hex numbers), the higher byte listed first. 
+code int joshuaradhikahalf[] = { 0xD0,0xD4,0xDA,0xD6,0xDF,0xD7,0xD3,0xD6,0xD8,0xD7,0xD5,0xD6,0xD1,0xD2,0xD0,0xD2,0xD6,0xD2,0xD0,0xD5,0xD2,0xD6,0xD1,0xD6,0xD4,0xD6,0xD8,0xD6,0xD9,0xD6,0xDB,0xD6,0xD1 }; // list of hex codes used to display ‚ÄúJoshua & Radhika‚Äù on the LCD display. Every character is represented by two bytes (hex numbers), the higher byte listed first. 
 int volume_save = 7; 		// copy of volume_level. Used to detect a change in volume_level, if such a change is detected the LCD display will be updated. 
 bit wave_bit = 0; 			//if wave_bit=0 it is in square wave mode, if =1 it is in sine wave mode
 bit save_wave = 0; 			// copy of wave_bit. Used to detect a change in the value of wave_bit, if such a change is detected the LCD display is updated. 
 code int sine_wave[] = { 2048,2448,2832,3186,3496,3751,3940,4057,4095,4057,3940,3751,3496,3186,2832,2448,2048,1648,1264,910,600,345,156,39,0,39,156,345,600,910,1264,1648 }; //values to be put into DAC0 as timer 2 overflows to generate a sine wave
 int sine_position = 0; 		//initial position in the sine wave array
-code int demo_high[] = { 0xF0,0xF2,0xF0,0xEE,0xED,0xEE,0xF0,0xF0,0xEB,0xED,0xEE,0xEE,0xED,0xEE,0xF0,0xF0,0xF0,0xF2,0xF0,0xEE,0xED,0xEE,0xF0,0xF0,0xEB,0xEB,0xF0,0xF0,0xED,0xE8,0xE8,0xE8 }; // the higher bits of the demo song ìLondon Bridgeî, copied to the DAC to play the required frequency. 
-code int demo_low[] = { 0x82,0x30,0x82,0x9D,0x98,0x9D,0x82,0x82,0x4E,0x98,0x9D,0x9D,0x98,0x9D,0x82,0x82,0x82,0x30,0x82,0x9D,0x98,0x9D,0x82,0x82,0x4E,0x4E,0x82,0x82,0x98,0xC0,0xC0,0xC0 }; // the lower bits of the demo song ìLondon Bridgeî, copied to the DAC to play the required frequency. 
-code int demo_LED[] = { 6,7,6,5,4,5,6,6,3,4,5,5,4,5,6,6,6,7,6,5,4,5,6,6,3,3,6,6,4,2,2,2 }; // used to light up the corresponding notes on the LEDs while ìLondon Bridgeî is being played. 
+code int demo_high[] = { 0xF0,0xF2,0xF0,0xEE,0xED,0xEE,0xF0,0xF0,0xEB,0xED,0xEE,0xEE,0xED,0xEE,0xF0,0xF0,0xF0,0xF2,0xF0,0xEE,0xED,0xEE,0xF0,0xF0,0xEB,0xEB,0xF0,0xF0,0xED,0xE8,0xE8,0xE8 }; // the higher bits of the demo song ‚ÄúLondon Bridge‚Äù, copied to the DAC to play the required frequency. 
+code int demo_low[] = { 0x82,0x30,0x82,0x9D,0x98,0x9D,0x82,0x82,0x4E,0x98,0x9D,0x9D,0x98,0x9D,0x82,0x82,0x82,0x30,0x82,0x9D,0x98,0x9D,0x82,0x82,0x4E,0x4E,0x82,0x82,0x98,0xC0,0xC0,0xC0 }; // the lower bits of the demo song ‚ÄúLondon Bridge‚Äù, copied to the DAC to play the required frequency. 
+code int demo_LED[] = { 6,7,6,5,4,5,6,6,3,4,5,5,4,5,6,6,6,7,6,5,4,5,6,6,3,3,6,6,4,2,2,2 }; // used to light up the corresponding notes on the LEDs while ‚ÄúLondon Bridge‚Äù is being played. 
 bit demo_bit = 0; 			//=0 if demo mode is not selected. =1 if demo mode is selected
 bit endsong = 0; 			// the notes of London Bridge are played at a note per 500ms (or 120bpm). This is used to signal that timer 4 has overflowed and that 500ms has passed since last overflow, so the next note needs to be played. 
 unsigned char SFRPAGE_SAVE;  //when the SFR page needs to be changed, the previous page will be saved into this variable
@@ -69,23 +69,23 @@ void main(void)
 	Timer2_Init();  //calls the timer 2 initialisation function
 	Voltage_Reference_Init(); //calls the voltage reference initialisation function
 	Interrupts_Init();  //calls the interrupt initialisation function
-	Display_Joshua_Radhika();  //calls the function that displays ìJoshua Beverley & Radhika Feronî upon startup. 
+	Display_Joshua_Radhika();  //calls the function that displays ‚ÄúJoshua Beverley & Radhika Feron‚Äù upon startup. 
 	while (1)
 	{
 		if (demo_bit == 0)  //if the demo bit equals 0 (demo mode has not been selected)
 		{
 			if ((P1 != save_P1) | (check3 == 1)) //If the pushbuttons have been changed (one has been pressed or released), update timer 2 with correct reload values (frequencies) if required. 
 			{
-				if (((!PB2 & !PB3) | (!PB2 & !PB4) | (!PB2 & !PB5) | (!PB2 & !PB6) | (!PB2 & !PB7) | (!PB2 & !PB8) | (!PB3 & !PB4) | (!PB3 & !PB5) | (!PB3 & !PB6) | (!PB3 & !PB7) | (!PB3 & !PB8) | (!PB4 & !PB5) | (!PB4 & !PB6) | (!PB4 & !PB7) | (!PB4 & !PB8) | (!PB5 & !PB6) | (!PB5 & !PB7) | (!PB5 & !PB8) | (!PB6 & !PB7) | (!PB6 & !PB8) | (!PB7 & !PB8)) & (check3 == 0))  //If two or more buttons have been pressed, this if statement is entered to ensure the note that was played first is the one that sounds. If the check3 flag has been set to 1 (more below), this wonít be entered and program will update the timer with the correct reload values (frequencies). 
+				if (((!PB2 & !PB3) | (!PB2 & !PB4) | (!PB2 & !PB5) | (!PB2 & !PB6) | (!PB2 & !PB7) | (!PB2 & !PB8) | (!PB3 & !PB4) | (!PB3 & !PB5) | (!PB3 & !PB6) | (!PB3 & !PB7) | (!PB3 & !PB8) | (!PB4 & !PB5) | (!PB4 & !PB6) | (!PB4 & !PB7) | (!PB4 & !PB8) | (!PB5 & !PB6) | (!PB5 & !PB7) | (!PB5 & !PB8) | (!PB6 & !PB7) | (!PB6 & !PB8) | (!PB7 & !PB8)) & (check3 == 0))  //If two or more buttons have been pressed, this if statement is entered to ensure the note that was played first is the one that sounds. If the check3 flag has been set to 1 (more below), this won‚Äôt be entered and program will update the timer with the correct reload values (frequencies). 
 				{
-					if (((key_number == 1) & PB2) | ((key_number == 2) & (PB1 & PB2)) | ((key_number == 3) & PB3) | ((key_number == 4) & (PB1 & PB3)) | ((key_number == 5 | key_number == 6) & PB4) | ((key_number == 7) & PB5) | ((key_number == 8) & (PB1 & PB5)) | ((key_number == 9) & PB6) | ((key_number == 10) & (PB1 & PB6)) | ((key_number == 11) & PB7) | ((key_number == 12) & (PB1 & PB7)) | ((key_number == 13 | key_number == 14) & PB8))  //This checks that the note sounding is currently being played. If it isnít, the flag check3 will be set to 1, and this if statement wonít be entered next iteration. Instead, the program will move to the statement updating the timer with the lowest note currently being pressed. 
+					if (((key_number == 1) & PB2) | ((key_number == 2) & (PB1 & PB2)) | ((key_number == 3) & PB3) | ((key_number == 4) & (PB1 & PB3)) | ((key_number == 5 | key_number == 6) & PB4) | ((key_number == 7) & PB5) | ((key_number == 8) & (PB1 & PB5)) | ((key_number == 9) & PB6) | ((key_number == 10) & (PB1 & PB6)) | ((key_number == 11) & PB7) | ((key_number == 12) & (PB1 & PB7)) | ((key_number == 13 | key_number == 14) & PB8))  //This checks that the note sounding is currently being played. If it isn‚Äôt, the flag check3 will be set to 1, and this if statement won‚Äôt be entered next iteration. Instead, the program will move to the statement updating the timer with the lowest note currently being pressed. 
 					{
-						check3 = 1; // Set check3 to 1 so that the if statement wonít be entered next loop. 
+						check3 = 1; // Set check3 to 1 so that the if statement won‚Äôt be entered next loop. 
 						key_number = 0; // Reset the key number. 
 					}
 					else
 					{
-						check3 = 0;  // If the above isnít the case and the note sounding is being pressed, reset the check flag. 
+						check3 = 0;  // If the above isn‚Äôt the case and the note sounding is being pressed, reset the check flag. 
 					}
 					cache_high = temp_cache_high;  // Use the value stored in temp_cache_high to reload the timer with, as it was the note played first. 
 					cache_low = temp_cache_low; // Use the value stored in temp_cache_low to reload the timer with, as it was the note played first. 
@@ -253,7 +253,7 @@ void main(void)
 					{
 						DAC_Deinit(); //call the DAC deinitialisation function to switch the dac off
 					}
-					check3 = 0;	// If the above isnít the case and the note sounding is being pressed, reset the check flag. 
+					check3 = 0;	// If the above isn‚Äôt the case and the note sounding is being pressed, reset the check flag. 
 				}
 				else
 				{
@@ -408,7 +408,7 @@ void main(void)
 					{
 						DAC_Deinit(); //call the DAC deinitialisation function to switch the dac off
 					}
-					check3 = 0;	// If the above isnít the case and the note sounding is being pressed, reset the check flag. 
+					check3 = 0;	// If the above isn‚Äôt the case and the note sounding is being pressed, reset the check flag. 
 				}
 
 				cache_high = high_sound;  //Saves the high byte for the desired frequency to the value used for the timer reload. 
@@ -421,7 +421,7 @@ void main(void)
 					DAC_Init();  //calls the DAC initialisation function
 				}
 				Timer2_Init(); //calls the timer 2 initialisation function to re-initialise with the new frequencies
-				P2 = ~P1;  //lights up the corresponding LEDís when a pushbutton is pressed. 
+				P2 = ~P1;  //lights up the corresponding LED‚Äôs when a pushbutton is pressed. 
 				save_P1 = P1; //saves the value of P1 so it can be compared to P1 when a change has been made. To save unnecessary processing power, the function will only update frequencies to the timer if a change has been made. 
 			}
 			else if (!MPB) //if mode pushbutton is pressed (=0)
@@ -524,7 +524,7 @@ void main(void)
 				TMR4CN = 0x00; //stop timer 4 by sending 0 to the timer 4 control register
 				endsong = 0; //ensures the final note from the demo song (if selected) has stopped playing. 
 				P2 = 0; //clear P2 (LEDS)
-				Display_Joshua_Radhika(); //Display ìJoshua Beverley & Radhika Feronî on the LCD screen. 
+				Display_Joshua_Radhika(); //Display ‚ÄúJoshua Beverley & Radhika Feron‚Äù on the LCD screen. 
 			}
 			else if (PB2 & PB3 & PB4 & PB5 & PB6 & PB7 & PB8) //if pushbutton 2-8 are not pressed (ie =1)
 			{
@@ -539,7 +539,7 @@ void main(void)
 			DAC_Init(); //call DAC initialisation function
 			for (e = 0;e<31;e++)  //e represents what note the demo song is up to. It will be incremented as the beat of the song progresses. 
 			{
-				while (endsong == 0) //while the endsong variable hasnít been set to 1, infinitely loop. The loop will break when timer 4 overflows. 
+				while (endsong == 0) //while the endsong variable hasn‚Äôt been set to 1, infinitely loop. The loop will break when timer 4 overflows. 
 				{
 				}
 				cache_high = demo_high[e]; //Set the higher byte reload value for timer 2 to the correct note in the demo_high array. 
@@ -596,7 +596,7 @@ void main(void)
 /*--------------------------------------------------------------------------------------------------------------------
 Function: Display_Joshua_Radhika
 
-Description: Display ìJoshua Beverley & Radhika Feronî upon startup and when entering play state from volume state.
+Description: Display ‚ÄúJoshua Beverley & Radhika Feron‚Äù upon startup and when entering play state from volume state.
 
 
 --------------------------------------------------------------------------------------------------------------------*/
@@ -604,7 +604,7 @@ void Display_Joshua_Radhika()
 {
 	int m = 0;    //Variable used for the for loop. 
 	LCD_Init();    //Initialise the LCD screen. 
-	for (m = 0; m<33; m++)   //16 characters in the first line ìJoshua Beverley î so the for loop needs to repeated 33 times to print all characters. One additional iteration is needed to display the command used to initialise displaying characters on the the LCD screen (0xD0); this is the first hex number in the array. 
+	for (m = 0; m<33; m++)   //16 characters in the first line ‚ÄúJoshua Beverley ‚Äù so the for loop needs to repeated 33 times to print all characters. One additional iteration is needed to display the command used to initialise displaying characters on the the LCD screen (0xD0); this is the first hex number in the array. 
 	{
 		LCD = joshuaradhika[m];  // Selects hex number from the joshuaradhika array to display that corresponding character on the LCD.
 		Toggle_E();    //Toggle the E line
@@ -614,7 +614,7 @@ void Display_Joshua_Radhika()
 		LCD = 0xD0;
 		Toggle_E();    //Toggle the E line
 	}
-	for (m = 32; m<66; m++)  //16 characters in the second line ì& Radhika Feron î so the for loop needs to repeated 32 times to print all characters.
+	for (m = 32; m<66; m++)  //16 characters in the second line ‚Äú& Radhika Feron ‚Äù so the for loop needs to repeated 32 times to print all characters.
 	{
 		LCD = joshuaradhika[m];  // Selects hex number from the joshuaradhika array to display that corresponding character on the LCD.
 		Toggle_E();    //Toggle the E line
@@ -633,7 +633,7 @@ void Display_Note()
 	LCD_Init();    //Initialise the LCD screen. 
 	LCD = 0xD0;    //Command used to initialise displaying characters on the the LCD screen. 
 	Toggle_E();    //Toggle the E line
-	for (m = 1; m<33; m++)   //Display ìJoshua & Radhikaî on the top row of the LCD screen. 16 characters in wave_selection_LCD, so the for loop needs to repeat 32 times to print all characters. 
+	for (m = 1; m<33; m++)   //Display ‚ÄúJoshua & Radhika‚Äù on the top row of the LCD screen. 16 characters in wave_selection_LCD, so the for loop needs to repeat 32 times to print all characters. 
 	{
 		LCD = joshuaradhikahalf[m]; // Selects hex number from the joshuaradhikahalf array to display that corresponding character on the LCD.
 		Toggle_E();    //Toggle the E line
@@ -657,7 +657,7 @@ void Display_Note()
 		LCD = NoteDisplayLCD[0];  //Least significant byte for displaying a #. 
 		Toggle_E();    //Toggle the E line
 	}
-	else //If the key number isnít any of the #ís, display a space instead. 
+	else //If the key number isn‚Äôt any of the #‚Äôs, display a space instead. 
 	{
 		LCD = 0xD2;    //Most significant byte for displaying a space.
 		Toggle_E();    //Toggle the E line
@@ -672,7 +672,7 @@ Description: When volume mode is selected, the volume level (0-15) is shown on t
 --------------------------------------------------------------------------------------------------------------------*/
 void Display_Volume()
 {
-	code int volumeword[] = { 0xD5,0xD6,0xD6,0xDF,0xD6,0xDC,0xD7,0xD5,0xD6,0xDD,0xD6,0xD5,0xD3,0xDA,0xD2,0xD0 }; // List of hex codes to display ìVolume: î on the LCD display. Every character is represented by two bytes (hex numbers), the higher byte listed first. This has been defined locally due to space restrictions on global variables. 
+	code int volumeword[] = { 0xD5,0xD6,0xD6,0xDF,0xD6,0xDC,0xD7,0xD5,0xD6,0xDD,0xD6,0xD5,0xD3,0xDA,0xD2,0xD0 }; // List of hex codes to display ‚ÄúVolume: ‚Äù on the LCD display. Every character is represented by two bytes (hex numbers), the higher byte listed first. This has been defined locally due to space restrictions on global variables. 
 	code int volume_LCD[] = { 0xD3,0xD0,0xD1,0xD2,0xD3,0xD4,0xD5,0xD6,0xD7,0xD8,0xD9 }; // List of hex codes to display any number on the LCD display. The first number (0xD3) is the most significant byte for all numbers, while the next 10 numbers are the least significant bytes for numbers 0-9. Every character is represented by two bytes (hex numbers), the higher byte listed first. This has been defined locally due to space restrictions on global variables. 
 	int m = 0;    //Variable used for the for loop. 
 	LCD_Init();    //Initialise the LCD screen. 
@@ -720,25 +720,25 @@ Description: When volume mode is selected, the type of wave selected (square/sin
 --------------------------------------------------------------------------------------------------------------------*/
 void DispWaveBitLCD()
 {
-	code int wave_selection_LCD[] = { 0xD5,0xD7,0xD6,0xD1,0xD7,0xD6,0xD6,0xD5,0xD2,0xD0,0xD5,0xD4,0xD7,0xD9,0xD7,0xD0,0xD6,0xD5,0xD3,0xDA,0xD2,0xD0 }; // list of hex codes to display ìWave Type: î on the LCD display. Every character is represented by two bytes (hex numbers), the higher byte listed first. This has been defined locally due to space restrictions on global variables. 
+	code int wave_selection_LCD[] = { 0xD5,0xD7,0xD6,0xD1,0xD7,0xD6,0xD6,0xD5,0xD2,0xD0,0xD5,0xD4,0xD7,0xD9,0xD7,0xD0,0xD6,0xD5,0xD3,0xDA,0xD2,0xD0 }; // list of hex codes to display ‚ÄúWave Type: ‚Äù on the LCD display. Every character is represented by two bytes (hex numbers), the higher byte listed first. This has been defined locally due to space restrictions on global variables. 
 	int p = 0;     //variable used for the for loop
 	for (p = 0;p<22;p++)   //11 characters in wave_selection_LCD, so the for loop needs to repeat 22 times to print all characters. 
 	{
 		LCD = wave_selection_LCD[p]; // selects hex number from the array to display that corresponding character on the LCD.
 		Toggle_E();    // Toggle the E line
 	}
-	if (wave_bit == 1)   //If a sine wave has been selected, write ìsinî on the LCD. 
+	if (wave_bit == 1)   //If a sine wave has been selected, write ‚Äúsin‚Äù on the LCD. 
 	{
-		int wave_sin_LCD[] = { 0xD7,0xD3,0xD6,0xD9,0xD6,0xDE }; //list of hex codes to display ìsinî on the LCD display after ìWave Type: ì. This has been defined locally due to space restrictions on global variables. 
+		int wave_sin_LCD[] = { 0xD7,0xD3,0xD6,0xD9,0xD6,0xDE }; //list of hex codes to display ‚Äúsin‚Äù on the LCD display after ‚ÄúWave Type: ‚Äú. This has been defined locally due to space restrictions on global variables. 
 		for (p = 0;p<6;p++)   //3 characters in wave_sin_LCD, so the for loop needs to repeat 6 times to print all characters. 
 		{
 			LCD = wave_sin_LCD[p];  // selects hex number from the array to display that corresponding character on the LCD.
 			Toggle_E();    // Toggle the E line
 		}
 	}
-	else     //else, square wave mode has been selected, write ìsquî on the LCD. 
+	else     //else, square wave mode has been selected, write ‚Äúsqu‚Äù on the LCD. 
 	{
-		int wave_squ_LCD[] = { 0xD7,0xD3,0xD7,0xD1,0xD7,0xD5 }; //list of hex codes to display ìsquî on the LCD display after ìWave Type: ì. This has been defined locally due to space restrictions on global variables. 
+		int wave_squ_LCD[] = { 0xD7,0xD3,0xD7,0xD1,0xD7,0xD5 }; //list of hex codes to display ‚Äúsqu‚Äù on the LCD display after ‚ÄúWave Type: ‚Äú. This has been defined locally due to space restrictions on global variables. 
 		for (p = 0;p<6;p++)   //3 characters in wave_squ_LCD, so the for loop needs to repeat 6 times to print all characters. 
 		{
 			LCD = wave_squ_LCD[p];  // selects hex number from the array to display that corresponding character on the LCD.
@@ -823,7 +823,7 @@ void Xms_Delay(int n)
 	for (m = 0; m < n; m++) //m will increment every 1ms when the timer 3 overflows and is reset. When it reaches n, the specified number of milliseconds, the for loop will break. 
 	{
 		Timer3_Init();   //initialise timer 3. 
-		while (LCD_delay == 0) //while the LCD_delay variable hasnít been set to 1, infinitely loop. The loop will break when timer 3 overflows. 
+		while (LCD_delay == 0) //while the LCD_delay variable hasn‚Äôt been set to 1, infinitely loop. The loop will break when timer 3 overflows. 
 		{
 		}
 		LCD_delay = 0;  //reset the flag to 0 for next use
